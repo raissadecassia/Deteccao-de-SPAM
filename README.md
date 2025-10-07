@@ -58,54 +58,72 @@ Realização da Ponderada: Detecção de SPAM
 
 # 6. Resultados
 
-## 6.1 Modelo LSTM + GloVe
+## 6.1 Comparação Geral de Acurácia
 
-- **Acurácia:** 0.9749  
+- **Acurácia LSTM + GloVe:** 0.9740  
+- **Acurácia TF-IDF + Rede Densa:** 0.9722  
+
+**Conclusão inicial:**  
+&emsp;O modelo LSTM com GloVe apresentou melhor desempenho geral, com ligeira vantagem em relação ao modelo TF-IDF + Rede Densa.
+
+
+## 6.2 Modelo LSTM + GloVe
+
+- **Acurácia:** 0.9740  
+
 - **Matriz de confusão:**
 
 |          | Predito Ham (0) | Predito Spam (1) |
 |----------|-----------------|-----------------|
-| **Ham (0)**  | 956             | 9               |
-| **Spam (1)** | 19              | 131             |
+| **Ham (0)**  | 959             | 6               |
+| **Spam (1)** | 23              | 127            |
+
 
 - **Relatório de classificação:**
 
 | Classe   | Precision | Recall | F1-score | Support |
 |----------|-----------|--------|----------|---------|
 | Ham (0)  | 0.98      | 0.99   | 0.99     | 965     |
-| Spam (1) | 0.94      | 0.87   | 0.90     | 150     |
+| Spam (1) | 0.95      | 0.85   | 0.90     | 150     |
 | **Média geral** | 0.97      | 0.97   | 0.97     | 1115    |
 
 **Interpretação:**  
-O modelo LSTM com GloVe apresenta excelente desempenho geral.  
-- A classe Ham é detectada com quase 99% de recall, mostrando poucos falsos negativos.  
-- A classe Spam tem recall menor (87%), indicando que algumas mensagens de spam foram classificadas como ham.
+- O modelo detecta a classe Ham com altíssima precisão e recall.  
+- Para a classe Spam, o recall é 85%, mostrando que algumas mensagens de spam foram classificadas como Ham.  
+- O F1-score de Spam (0.90) mostra que o modelo ainda tem bom equilíbrio entre precisão e recall.
 
 
-## 6.2 Modelo TF-IDF + Rede Densa
+### 6.3 Modelo TF-IDF + Rede Densa
 
-- **Acurácia:** 0.9730  
+- **Acurácia:** 0.9722  
+
 - **Matriz de confusão:**
 
 |          | Predito Ham (0) | Predito Spam (1) |
 |----------|-----------------|-----------------|
-| **Ham (0)**  | 958             | 7               |
-| **Spam (1)** | 23              | 127             |
+| **Ham (0)**  | 956             | 9               |
+| **Spam (1)** | 22              | 128             |
+
+
+- **Relatório de classificação:**
+
+| Classe   | Precision | Recall | F1-score | Support |
+|----------|-----------|--------|----------|---------|
+| Ham (0)  | 0.98      | 0.99   | 0.98     | 965     |
+| Spam (1) | 0.93      | 0.85   | 0.89     | 150     |
+| **Média geral** | 0.97      | 0.97   | 0.97     | 1115    |
 
 **Interpretação:**  
-O modelo TF-IDF + Rede Densa também apresenta desempenho muito próximo ao LSTM, com acurácia similar.  
-- O recall para Spam é ligeiramente menor (128 de 150 corretamente identificadas), mostrando um pouco mais de falsos negativos.  
-- O modelo é ligeiramente melhor em detectar Ham (958 de 965).
+- O modelo TF-IDF + Rede Densa tem desempenho muito próximo ao LSTM + GloVe.  
+- O recall para Spam é igual (85%), mas a precisão é ligeiramente menor (0.93), refletindo mais falsos positivos.  
+- É uma alternativa computacionalmente mais leve, porém com pequena perda na detecção de Spam.
 
+### Conclusão da Comparação
 
-## 6.3 Comparação entre os modelos
-
-- A acurácia geral dos dois modelos é praticamente igual, **em torno de 97,4%**.  
-- O **LSTM + GloVe** tem melhor recall para Spam, importante para minimizar mensagens de spam não detectadas.  
-- O **TF-IDF + Rede Densa** é mais simples e computacionalmente mais leve, mas perde um pouco na detecção de Spam.
-
-**Conclusão:**  
-&emsp;Ambos os modelos são altamente eficientes para detecção de spam em mensagens SMS. A escolha pode depender de recursos computacionais e da prioridade em reduzir falsos negativos na classe Spam.
+- Ambos os modelos alcançam alta acurácia (~97%).  
+- **LSTM + GloVe** se destaca por ligeira vantagem em precisão da classe Spam.  
+- **TF-IDF + Rede Densa** é viável e eficiente, mas perde um pouco em sensibilidade para spam.  
+- A escolha entre os modelos pode depender de **recursos computacionais** e **prioridade na detecção de Spam**.
 
 
 # 7. Próximos Passos
@@ -121,7 +139,7 @@ O modelo TF-IDF + Rede Densa também apresenta desempenho muito próximo ao LSTM
 
 # 8. Conclusão
 
-&emsp;O experimento demonstrou a eficácia de modelos baseados em **redes neurais recorrentes** e **representações semânticas densas (GloVe)** para tarefas de **classificação de texto curta**, como SMS.
+&emsp;O experimento demonstrou a eficácia dos modelos para tarefas de **classificação de texto curta**, como SMS.
 
 &emsp;Em síntese:
 - A combinação de **embeddings pré-treinados + LSTM** proporcionou alta acurácia e boa generalização.
